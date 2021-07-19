@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page-title %} 
+{{ c.name }}
+{% endblock %}
+
+{% block main-content %}
+<h3>Category: {{c.category.name }}</h3>
+<ul>
+  {% for p in category.post %}
+  <li>{{ p.name }}</li>
+  {% endfor %}
+
+</ul>>
