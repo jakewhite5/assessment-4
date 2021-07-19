@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block page-title %} 
+{{ post.category.name }}:{{ post.title}}
+{% endblock %}
+
+{% block main-content %}
+<h3>Title: {{ post.title }}</h3>
+<h4>Description: {{ post.category.content }}</h4> 
+
+<hr>
+<a href="{% url 'craig:post_details' post.id %}"><button>Edit Post</button></a>
+<hr>
+{% endblock %}

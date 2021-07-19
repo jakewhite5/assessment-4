@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
 {% block page-title %} 
-{{ c.name }}
+{{ category.name }}
 {% endblock %}
 
 {% block main-content %}
-<h3>Category: {{c.category.name }}</h3>
-<ul>
-  {% for p in category.post %}
-  <li>{{ p.name }}</li>
-  {% endfor %}
+<h3>Category: {{ category.name }}</h3>
 
-</ul>>
+<hr>
+<a href="{% url 'craig:category_edit' category.id %}"><button>Edit Category</button></a>
+<hr>
+<ul>
+    {% for p in category.post.all %}
+    <a href="{% url 'craig:post_details' p.id %}"><li>{{ p.title }} </li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %} 
