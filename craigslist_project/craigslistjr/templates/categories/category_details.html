@@ -12,7 +12,7 @@
 <hr>
 <ul>
     {% for p in category.post.all %}
-    <a href="{% url 'craig:post_details' p.id %}"><li>{{ p.title }} </li>
+    <a href="{% url 'craig:post_details' post_id=p.id category_id=category.id %}"><li>{{ p.title }} </li>
     {% endfor %}
 </ul>
 

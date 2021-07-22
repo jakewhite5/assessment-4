@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block page-title %} 
-{{ post.category.name }}:{{ post.title}}
+{{ post.title }}
 {% endblock %}
 
 {% block main-content %}
 <h3>Title: {{ post.title }}</h3>
-<h4>Description: {{ post.category.content }}</h4> 
+<h4>Description: {{ post.content }}</h4> 
 
 <hr>
-<a href="{% url 'craig:post_details' post.id %}"><button>Edit Post</button></a>
+<a href="{% url 'craig:post_edit' category_id=post.category.id post_id=post.id %}"></a><button>Edit Category</button></a>
 <hr>
 {% endblock %}
+

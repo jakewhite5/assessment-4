@@ -83,7 +83,7 @@ def post_new(request, post_id):
     }
     return render(request, 'posts/post_list.html', data)
 
-def post_details(request, post_id):
+def post_details(request, category_id, post_id):
 
     try:
         post =  Post.objects.get(pk=post_id)
@@ -96,8 +96,29 @@ def post_details(request, post_id):
     }
     return render(request, 'posts/post_details.html', data)
 
-def post_edit(request, category_id, post_id):
-    return HttpResponse("post edit")
+def post_edit(request, post_id, category_id):
+
+    try:
+        post =  Post.objects.get(pk=post_id)
+    except:
+        print('error')
+        return HttpResponse("That post doesn't exist somehow")
+
+    form = PostForm(request.POST or None, instance=post)
+
+    if request.method == "POST":
+        try:
+            form.save()
+            return redirect("craig:post_detail", post_id=post_id)
+        except:
+            return HttpResponse("Error updating category")
+    data = {
+        "create_or_update": False,
+        "form": form
+    }
+    return render(request, "post/post_form.html", data)
+
+    
 
 def post_delete(request, category_id, post_id):
     return HttpResponse("home page")
