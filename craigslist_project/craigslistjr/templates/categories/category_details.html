@@ -8,7 +8,9 @@
 <h3>Category: {{ category.name }}</h3>
 
 <hr>
+<a href="{% url 'craig:post_new' category.id %}"><button> Add Post</button></a>
 <a href="{% url 'craig:category_edit' category.id %}"><button>Edit Category</button></a>
+<a href="{% url 'craig:category_delete' category_id=category.id %}"><button>Delete Category</button></a>
 <hr>
 <ul>
     {% for p in category.post.all %}

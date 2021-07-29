@@ -9,7 +9,8 @@
 <h4>Description: {{ post.content }}</h4> 
 
 <hr>
-<a href="{% url 'craig:post_edit' category_id=post.category.id post_id=post.id %}"></a><button>Edit Category</button></a>
+<a href="{% url 'craig:post_edit' category_id=post.category.id post_id=post.id %}"><button>Edit Post</button></a>
+<a href="{% url 'craig:post_delete' category_id=post.category.id post_id=post.id %}"><button>Delete Post</button></a>
 <hr>
 {% endblock %}
 

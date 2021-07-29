@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{%block page-title %} 
+Craigslistjr
+{% endblock %}
+
+{% block main-content %}
+<h1>Welcome to craigslistjr! We are like craigslist tm but worse! </h1>
+<a href="{% url 'craig:category_list' %}">Get started!</a>
+
+{% endblock %}

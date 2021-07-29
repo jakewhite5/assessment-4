@@ -6,7 +6,7 @@ from craigslistjr.forms import CategoryForm, PostForm
 
 
 def index(request):
-    return HttpResponse("index")
+    return render(request, 'home.html')
 
 def list_categories(request):
     data = {
@@ -53,7 +53,7 @@ def category_edit(request, category_id):
     if request.method == "POST":
         try:
             form.save()
-            return redirect("craig:category_detail", category_id=category_id)
+            return redirect("craig:category_detail", category_id=category.id)
         except:
             return HttpResponse("Error updating category")
     data = {
@@ -63,25 +63,33 @@ def category_edit(request, category_id):
     return render(request, "categories/category_form.html", data)
 
 def category_delete(request, category_id):
-    return HttpResponse("category delete")
-
+    if request.method == "GET":
+        category = Category.objects.get(id=category_id)
+        category.delete()
+        return redirect('craig:category_list')
+    else:
+        return HttpResponse('something broke')
 #posts
+def get_post(post_id):
+    return Post.objects.get(id=post_id)
 
-def post_new(request, post_id):
-    form = PostForm(request.POST or None)
-
+def post_new(request, category_id):
+    try:
+        category = Category.objects.get(pk=category_id)
+    except:
+        return HttpResponse("That post no longer exists")
+    form = PostForm(request.POST or None, initial={'category':category})
     if request.method == "POST":
         try:
             form.save()
-            return redirect("craig:category_list")
+            return redirect("craig:category_detail", category_id)
         except:
-            print('error')
-            return HttpResponse("Error creating post")
+            return HttpResponse("Error adding new post")
     data = {
-        "posts": Post.objects.filter(post=post_id),
+        "create_or_update": True,
         "form": form
     }
-    return render(request, 'posts/post_list.html', data)
+    return render(request, "posts/post_form.html", data)
 
 def post_details(request, category_id, post_id):
 
@@ -102,25 +110,28 @@ def post_edit(request, post_id, category_id):
         post =  Post.objects.get(pk=post_id)
     except:
         print('error')
-        return HttpResponse("That post doesn't exist somehow")
+        return HttpResponse("That post doesn't exist somehow?")
 
     form = PostForm(request.POST or None, instance=post)
 
     if request.method == "POST":
         try:
             form.save()
-            return redirect("craig:post_detail", post_id=post_id)
+            return redirect("craig:post_details", post_id=post_id, category_id=post.category.id)
         except:
-            return HttpResponse("Error updating category")
+            return HttpResponse("Error updating post")
     data = {
         "create_or_update": False,
         "form": form
     }
-    return render(request, "post/post_form.html", data)
+    return render(request, "posts/post_form.html", data)
 
     
 
 def post_delete(request, category_id, post_id):
-    return HttpResponse("home page")
-
+    if request.method == "GET":
+        post = get_post(post_id)
+        print(post)
+        post.delete()
+    return redirect('craig:category_detail', category_id=category_id)
 

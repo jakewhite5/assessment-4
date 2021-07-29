@@ -4,10 +4,10 @@
 All categories
 {% endblock %}
 
-<hr>
-<a href="{% url 'craig:category_new' %}"></a> <button> Add Category</button>
-<hr>
 {% block main-content %}
+<hr>
+<a href="{% url 'craig:category_new' %}"><button> Add Category</button></a>
+<hr>
 <h1>Categories</h1>
 <ul>
   {% for c in categories %}

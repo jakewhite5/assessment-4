@@ -2,18 +2,18 @@
 
 {% block page-title %} 
 {% if create_or_update %}
-Create Category
+Create Post
 {% else %}
-Update Category
+Update Post
 {% endif %}
 {% endblock %}
 
 {% block main-content %}
 <h1>
 {% if create_or_update %}
-Create Category:
+Create Post:
 {% else %}
-Update Category: {{ category.name }}
+Update Post: {{ post.title }}
 {% endif %}
 </h1>
 
@@ -25,9 +25,9 @@ Update Category: {{ category.name }}
   </table>
   <button type='submit'>
     {% if create_or_update %}
-    Add Category
+    Add Post
     {% else %}
-    Update Category
+    Update Post
     {% endif %}
   </button>
    
